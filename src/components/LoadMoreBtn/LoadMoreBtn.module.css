@@ -1,0 +1,11 @@
+.loadMoreBtn {
+  display: block;
+  margin: 0 auto;
+  border: none;
+  border-radius: 5px;
+  background-color: #3747ac;
+  font-size: 18px;
+  padding: 8px 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}

@@ -1,0 +1,10 @@
+.imageGalleryList {
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.imageGalleryListItem {
+  width: calc((100% - 20px * 3) / 4);
+}
