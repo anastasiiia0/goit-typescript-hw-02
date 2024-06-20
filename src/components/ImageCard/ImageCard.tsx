@@ -1,6 +1,12 @@
 import css from './ImageCard.module.css';
+import { Image } from '../../gallery-api';
 
-export default function ImageCard({ image, onOpenModal }) {
+interface ImageCardProps {
+  image: Image,
+  onOpenModal: (data: Image) => void,
+}
+
+export default function ImageCard({ image, onOpenModal }: ImageCardProps) {
   return (
     <div onClick={() => onOpenModal(image)}>
       <img

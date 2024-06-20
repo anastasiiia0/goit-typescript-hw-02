@@ -9,15 +9,35 @@ import Loader from '../Loader/Loader';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import SearchBar from '../SearchBar/SearchBar';
 
+import { Image } from '../../gallery-api';
+
+const InitialImg = {
+  id: '',
+  urls: {
+    small: '',
+    regular: '',
+  },
+  alt_description: '',
+  user: {
+    profile_image: {
+      small: '',
+    },
+    name: '',
+    instagram_username: '',
+  },
+  likes: 0,
+  created_at: '',
+}
+
 export default function App() {
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState('');
-  const [totalPages, setTotalPages] = useState(0);
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalData, setModalData] = useState({});
+  const [images, setImages] = useState<Image[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [query, setQuery] = useState<string>('');
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+  const [modalData, setModalData] = useState<Image>(InitialImg);
 
   useEffect(() => {
     //in case of first mounting
@@ -25,7 +45,7 @@ export default function App() {
       return;
     }
 
-    async function handleSearch() {
+    async function handleSearch(): Promise<void> {
       try {
         setError(false);
         setLoading(true);
@@ -52,7 +72,7 @@ export default function App() {
     handleSearch();
   }, [page, query]);
 
-  const handleSubmit = topic => {
+  const handleSubmit = (topic: string): void => {
     // reset
     setImages([]);
     setPage(1);
@@ -60,22 +80,16 @@ export default function App() {
     setQuery(topic);
   };
 
-  const onClickLoadMoreBtn = () => {
+  const onClickLoadMoreBtn = (): void => {
     setPage(page + 1);
   };
 
-  // function handleModalToggle(data) {
-  //   modalIsOpen
-  //     ? (setModalData({}), setIsOpen(false))
-  //     : (setModalData(data), setIsOpen(true));
-  // }
-
-  function closeModal() {
+  function closeModal(): void {
     setIsOpen(false);
-    setModalData({});
+    setModalData(InitialImg);
   }
 
-  function openModal(data) {
+  function openModal(data: Image): void {
     setIsOpen(true);
     setModalData(data);
   }

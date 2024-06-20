@@ -2,19 +2,24 @@ import css from './SearchBar.module.css';
 import toast, { Toaster } from 'react-hot-toast';
 import { IoMdSearch } from 'react-icons/io';
 
-export default function SearchBar({ onSubmit }) {
-  const handleSubmit = evt => {
+interface SearchBarProps {
+  onSubmit: (topic: string) => void,
+}
+
+export default function SearchBar({ onSubmit }: SearchBarProps) {
+  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
 
-    const form = evt.target;
-    const searchValue = form.elements.searchTitle.value;
+    const form = evt.target as HTMLFormElement;
+    const searchValue = form.elements.namedItem("searchTitle") as HTMLInputElement;
+     const value = searchValue.value.trim();
 
-    if (searchValue.trim() === '') {
+    if (value === '') {
       toast.error('Please enter search term!');
       return;
     }
 
-    onSubmit(searchValue);
+    onSubmit(value);
     form.reset();
   };
 
